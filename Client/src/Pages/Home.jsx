@@ -18,6 +18,20 @@ const Home = () => {
             <div className="mt-16">
                 <FormField></FormField>
             </div>
+
+            <div className="mt-10">
+                {loading ? (
+                    <div className="flex-justify-center items-center">
+                        <Loader></Loader>
+                    </div>
+                ) : (
+                    <>
+                        {searchText && (
+                             <h2 className="font-medium text-[#666e75] text-xl mb-3">Showing Results for <span className="text-[#222328]">{searchText}</span> </h2>
+                        )}
+                    </>
+                )}
+            </div>
         </section>
     )
 }
