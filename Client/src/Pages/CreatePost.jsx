@@ -20,8 +20,8 @@ const CreatePost = () => {
 
 	}
 
-	const handleChange = () => {
-
+	const handleChange = (event) => {
+		setForm({...form , [event.target.name]: event.target.value})
 	}
 
 	const handleSurpriseMe = () => {
