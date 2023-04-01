@@ -18,5 +18,5 @@ const post = new mongoose.Schema({
 })
 
 // Creates the model out of the schema
-const PostSchema = mongoose.model("Post" , post)\
+const PostSchema = mongoose.model("Post" , post);
 export default PostSchema
