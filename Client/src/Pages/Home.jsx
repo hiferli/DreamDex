@@ -32,7 +32,7 @@ const Home = () => {
 
                 if (response.ok) {
                     const result = response.json();
-                    setAllPosts(result.data.reverse());
+                    setAllPosts(result.data?.reverse());
                 }
             } catch (error) {
                 console.log('Error while fetching all posts from the Database: ' + error);
