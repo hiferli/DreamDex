@@ -16,22 +16,46 @@ const CreatePost = () => {
 	const [generatingImage, setGeneratingImage] = useState(false);
 	const [loading, setLoading] = useState(false);
 
-	const handleSubmit = () => {
-
+	const handleSubmit = (e) => {
+		e.preventDefault();
 	}
 
-	const handleChange = (event) => {
-		setForm({...form , [event.target.name]: event.target.value})
+	const handleChange = () => {
+		setForm({ ...form, [event.target.name]: event.target.value })
 	}
 
 	const handleSurpriseMe = () => {
 		const randomPrompt = getRandomPrompt(form.prompt);
-		setForm({...form , prompt: randomPrompt})
+		setForm({ ...form, prompt: randomPrompt })
 	}
 
-	
-	const generateImage = () => {
 
+	const generateImage = async () => {
+		if (form.prompt) {
+			console.log(form.prompt)
+			try {
+				setGeneratingImage(true);
+				const response = await fetch("http://localhost:3000/api/v1/ai/", {
+					method: 'POST',
+					headers: {
+						'Content-Type': 'application/json',
+					  },
+					body: JSON.stringify({
+						prompt: form.prompt,
+					}),
+				})
+
+				const data = await response.json();
+				console.log(data)
+				setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
+			} catch (error) {
+				alert('Error while bringing AI Image to Frontend: ' + error)
+			} finally {
+				setGeneratingImage(false);
+			}
+		} else {
+			alert("Please give us something with which we can think and generate something!")
+		}
 	}
 
 	return (
@@ -43,21 +67,21 @@ const CreatePost = () => {
 
 			<form action="" onSubmit={handleSubmit} className='mt-16 max-wt-3xl '>
 				<div className="flex flex-col gap-5">
-					<FormField 
-						labelName="Your Name" 
-						type="text" 
-						name="name" 
-						placeholder="Your Name Here" 
-						value={form.name} 
+					<FormField
+						labelName="Your Name"
+						type="text"
+						name="name"
+						placeholder="Your Name Here"
+						value={form.name}
 						handleChange={handleChange} />
 
-					<FormField 
+					<FormField
 						labelName="Your Prompt"
-						type="text" 
-						name="prompt" 
-						placeholder="Alex and Marty partying in LA" 
-						value={form.prompt} 
-						handleChange={handleChange} 
+						type="text"
+						name="prompt"
+						placeholder="Alex and Marty partying in LA"
+						value={form.prompt}
+						handleChange={handleChange}
 						isSurpriseMe
 						handleSurpriseMe={handleSurpriseMe} />
 				</div>
@@ -65,14 +89,14 @@ const CreatePost = () => {
 
 				<div className="relative bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 w-64 p-3 h-64 flex justify-center items-center">
 					{
-						form.photo ? 
-						<img src={form.photo} alt={form.prompt} className='w-full h-full object-contain' />
-						:
-						<img src={preview} alt="Preview" className="w-9/12 h-9/12 object-contain opacity-40" />
+						form.photo ?
+							<img src={form.photo} alt={form.prompt} className='w-full h-full object-contain' />
+							:
+							<img src={preview} alt="Preview" className="w-9/12 h-9/12 object-contain opacity-40" />
 					}
 
 					{
-						generatingImage && 
+						generatingImage &&
 						<div className="absolute inset-0 z-0 flex justify-center items-center rounded-lg bg-[rgba(0,0,0,0.5)]">
 							<Loader />
 						</div>
