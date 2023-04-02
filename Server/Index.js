@@ -14,7 +14,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/api/v1/post" , postRoutes);
-app.use("api/v1/ai" , AIRoutes);
+app.use("/api/v1/ai" , AIRoutes);
 
 app.get('/' , async (request , response , next) => {
     response.send("Hello from Your World!")
