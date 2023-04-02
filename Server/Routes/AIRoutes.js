@@ -24,20 +24,21 @@ router.route("/").post(async (request , response , next) => {
         console.log(prompt)
         console.log("Line 25")
         
-        // const AIResponse = await openAI.createImage({
-        //     prompt,
-        //     n: 1,
-        //     size: '1024x1024',
-        //     response_format: 'b64_json',
-        // })
-
-        // NOT WORKING... Since the API is a Paid one and I don't have that much to pay to the same
+        // NOT WORKING... Since the API is a Paid one and I don't have that much to pay to the samey
         const response = await openAI.createImage({
-            prompt: "a white siamese cat",
+            prompt,
             n: 1,
-            size: "1024x1024",
-          });
-          image_url = response.data.data[0].url;
+            size: '1024x1024',
+            response_format: 'b64_json',
+        })
+
+        // const response = await openAI.createImage({
+        //     prompt: "a white siamese cat",
+        //     n: 1,
+        //     size: "1024x1024",
+        //   });
+
+        image_url = response.data.data[0].url;
           
 
         console.log("Line 32")
