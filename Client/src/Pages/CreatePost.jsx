@@ -28,7 +28,7 @@ const CreatePost = () => {
 					headers: {
 						'Content-Type': 'application/json',
 					},
-					body: JSON.stringify(form)
+					body: JSON.stringify({...form})
 				})
 
 				await response.json();
@@ -56,7 +56,7 @@ const CreatePost = () => {
 
 	const generateImage = async () => {
 		if (form.prompt) {
-			console.log(form.prompt)
+			// consolre.log(form.prompt)
 			try {
 				setGeneratingImage(true);
 				const response = await fetch("http://localhost:3000/api/v1/ai/", {
