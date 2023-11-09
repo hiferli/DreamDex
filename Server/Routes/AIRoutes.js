@@ -25,7 +25,8 @@ router.route("/").post(async (request , response , next) => {
         console.log("Line 25")
         
         // NOT WORKING... Since the API is a Paid one and I don't have that much to pay to the samey
-        const response = await openAI.createImage({
+        // LOL MFS I BOUGHT THE API 
+        const AIResponse = await openAI.createImage({
             prompt,
             n: 1,
             size: '1024x1024',
@@ -38,8 +39,7 @@ router.route("/").post(async (request , response , next) => {
         //     size: "1024x1024",
         //   });
 
-        image_url = response.data.data[0].url;
-          
+        const image_url = AIResponse.data.data[0].b64_json;
 
         console.log("Line 32")
 
@@ -48,7 +48,7 @@ router.route("/").post(async (request , response , next) => {
 
     } catch (error) {
         console.log("Error in Fetching Data from AI: " + error);
-        response.status(500).send(error?.response.data.error.message || 'Something went wrong');
+        response.status(500).send('Something went wrong');
     }
 })
 
