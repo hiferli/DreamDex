@@ -1,5 +1,5 @@
 
-# YourWorld: Your Personalized OpenAI's DALL-E 
+# DreamDex: Your Personalized OpenAI's DALL-E 
 
 OpenAI's DALL-E is a fascinating technology that allows us to generate unique images from textual prompts. This innovative tool has the potential to revolutionize the way we think about image creation, and its applications are endless. Using OpenAI APIs, you can create a project that allows users to input descriptive text, and DALL-E generates an image based on that prompt.
 
