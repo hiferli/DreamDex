@@ -67,12 +67,18 @@ const CreatePost = () => {
 					  },
 					body: JSON.stringify({
 						prompt: form.prompt,
+						key: form.key
 					}),
 				})
 
 				const data = await response.json();
 				// console.log(data)
-				setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
+
+				if(data.photo){
+					setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
+				} else {
+					alert("Please enter a valid Personal Access Key. Else, contact the Devs (joshi.ishaan.2001@gmail.com)");
+				}
 			} catch (error) {
 				alert('Error while bringing AI Image to Frontend: ' + error)
 			} finally {
