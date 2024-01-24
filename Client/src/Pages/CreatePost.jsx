@@ -10,7 +10,8 @@ const CreatePost = () => {
 	const [form, setForm] = useState({
 		name: '',
 		prompt: '',
-		photo: ''
+		photo: '',
+		key: ''
 	});
 
 	const [generatingImage, setGeneratingImage] = useState(false);
@@ -55,7 +56,7 @@ const CreatePost = () => {
 
 
 	const generateImage = async () => {
-		if (form.prompt) {
+		if (form.prompt && form.key) {
 			// consolre.log(form.prompt)
 			try {
 				setGeneratingImage(true);
@@ -70,7 +71,7 @@ const CreatePost = () => {
 				})
 
 				const data = await response.json();
-				console.log(data)
+				// console.log(data)
 				setForm({ ...form, photo: `data:image/jpeg;base64,${data.photo}` })
 			} catch (error) {
 				alert('Error while bringing AI Image to Frontend: ' + error)
@@ -78,7 +79,11 @@ const CreatePost = () => {
 				setGeneratingImage(false);
 			}
 		} else {
-			alert("Please give us something with which we can think and generate something!")
+			if(!form.prompt){
+				alert("Please give us something with which we can think and generate something!")
+			} else {
+				alert("Please enter a valid Personal Access Key. Contact Devs (joshi.ishaan.2001@gmail.com) for further information.")
+			}
 		}
 	}
 
@@ -97,6 +102,14 @@ const CreatePost = () => {
 						name="name"
 						placeholder="Your Name Here"
 						value={form.name}
+						handleChange={handleChange} />
+
+					<FormField
+						labelName="Your Personal Access Key"
+						type="password"
+						name="key"
+						placeholder="Your Key Here"
+						value={form.key}
 						handleChange={handleChange} />
 
 					<FormField
